@@ -68,6 +68,7 @@ accuracy = (y_test == y_pred).mean() # 计算准确率
 print(f"准确率: {accuracy:.2%}")
 
 # 处理数据不平衡
+# resample 重采样、重新取样
 smote = SMOTE(random_state=42)
 X_resampled, y_resampled = smote.fit_resample(X_train, y_train)
 
