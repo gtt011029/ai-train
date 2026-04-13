@@ -30,7 +30,7 @@ data["BMIRange"] = pd.cut(
     x=data["BMI"], bins=bmi_bins, labels=bmi_labels, right=False
 )  # 使用左闭右开区间
 # 计算每个BMI区间中高风险患者的比例 2分 => 首先要根据BMIRange 进行分组， 然后在过滤， 然后再得到比例
-bmi_risk_rate = data.groupby(data["BMIRange"])["RiskLevel"].apply(
+bmi_risk_rate = data.groupby(["BMIRange"])["RiskLevel"].apply(
     lambda x: (x == "高风险患者").mean()
 )
 # 统计每个BMI区间的患者数量 1分
@@ -51,7 +51,7 @@ data["AgeRange"] = pd.cut(
     x=data["Age"], bins=age_bins, labels=age_labels, right=False
 )  # 使用左闭右开区间
 # 计算每个年龄区间中高风险患者的比例 2分
-age_risk_rate = data.groupby(data["AgeRange"])["RiskLevel"].apply(
+age_risk_rate = data.groupby(data["AgeRange"], observed=False)["RiskLevel"].apply(
     lambda x: (x == "高风险患者").mean()
 )
 # 统计每个年龄区间的患者数量 1分
