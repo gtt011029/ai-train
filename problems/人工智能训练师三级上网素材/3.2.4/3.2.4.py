@@ -1,6 +1,6 @@
 import onnxruntime as ort
 import numpy as np
-import scipy.special # 高性能的数学函数库，（数学函数、分布式统计、物理建模）
+import scipy.special
 from PIL import Image
 
 
@@ -25,12 +25,11 @@ def preprocess_image(
     return image
 
 
-# 模型加载 2分
-session = ort.InferenceSession("resnet.onnx")
+# 加载模型  2分
+session = ort.InferenceSession('flower-detection.onnx')
 
-# 加载类别标签
-labels_path = "labels.txt"
-with open(labels_path) as f:
+# 加载类别标签 2分
+with open("labels.txt", "r") as f:
     labels = [line.strip() for line in f.readlines()]
 
 
@@ -38,32 +37,31 @@ with open(labels_path) as f:
 input_name = session.get_inputs()[0].name
 output_name = session.get_outputs()[0].name
 
+# 加载图片  2分
+image = Image.open("flower_test.png").convert("RGB")
 
-# 加载图片 2分
-image = Image.open("img_test.jpg").convert("RGB")
-
-# 预处理图片 2分
+# 预处理图片  2分
 processed_image = preprocess_image(image)
 
 # 确保输入数据是 float32 类型
 processed_image = processed_image.astype(np.float32)
 
-
-# 进行图片识别 2分 => 使用模型识别图片
+# 进行图片识别  2分
 output = session.run([output_name], {input_name: processed_image})[0]
 
-# 应用 softmax 函数获取概率 2分
-probabilities = scipy.special.softmax(output, axis=-1)
 
-# 获取最高的5个概率和对应的类别索引 3分
-# argsort 返回的是排序用的下标，不是概率本身，从小到大
-# [-5:] 取最后5条数据
-# [::-1] 把顺序倒过来
-top5_idx = np.argsort(probabilities[0])[-5:][::-1]
-top5_prob = probabilities[0][top5_idx]
+# 应用 softmax 函数获取识别分类后的准确率  2分
+accuracy = scipy.special.softmax(output, axis=-1)
+
+# 获取预测的类别索引
+predicted_idx = np.argmax(output[0])  # 取概率最大的那个类比的索引
+
+# 获取预测的准确值（转换为百分比）
+prob_percentage = accuracy[0][predicted_idx] * 100
+
+# 获取预测的类别标签
+predicted_label = labels[predicted_idx]
 
 
-# 打印结果
-print("Top 5 predicted classes:")
-for i in range(5):
-    print(f"{i + 1}: {labels[top5_idx[i]]} - Probability: {top5_prob[i]}")
+# 输出预测结果，包含百分比形式的概率
+print(f"Predicted class: {predicted_label}, Accuracy: {prob_percentage:.2f}%")
