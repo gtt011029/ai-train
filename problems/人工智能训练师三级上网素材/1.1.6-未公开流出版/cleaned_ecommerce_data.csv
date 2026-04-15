@@ -1,0 +1,15 @@
+UserID,UserName,Age,Gender,PurchaseAmount,ProductCategory,Rating,LoginFrequency,LastPurchaseDate,AgeGroup
+1001,User_1,23,Male,899.5,Electronics,4,Weekly,2023-07-15,18-25
+1002,User_2,31,Female,256.0,Clothing,5,Daily,2023-08-01,26-35
+1004,User_4,45,Female,1999.99,Home,2,Weekly,2023-09-10,36-45
+1007,User_7,52,Male,450.0,Books,1,Monthly,2023-04-03,46-55
+1009,User_9,25,Male,15000.0,Electronics,5,Daily,2023-09-01,18-25
+1014,User_14,41,Female,55.5,Sports,2,Daily,2023-07-11,36-45
+1015,User_15,22,Male,0.01,Electronics,3,Monthly,2023-09-12,18-25
+1017,User_17,47,Male,210.4,Home,4,Monthly,2023-08-25,46-55
+1018,User_18,20,Female,99.9,Clothing,5,Daily,2023-07-08,18-25
+1020,User_20,59,Female,1280.6,Sports,5,Monthly,2023-09-05,56+
+1022,User_22,40,Female,333.3,Home,4,Weekly,2023-08-12,36-45
+1023,User_23,27,Male,888.0,Electronics,5,Monthly,2023-06-30,26-35
+1024,User_24,55,Female,12.0,Clothing,3,Daily,2023-09-20,46-55
+1025,User_25,30,Male,500.0,Sports,4,Weekly,2023-07-01,26-35
